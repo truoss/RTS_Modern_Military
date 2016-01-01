@@ -38,7 +38,14 @@ public class GameLogic : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (Units.Count == 0)
+            return;
+
         //Update Units Movement
+        for (int i = 0; i < Units.Count; i++)
+        {
+            Units[i].DoFixedUpdate();
+        }
     }
 
     void Update()
