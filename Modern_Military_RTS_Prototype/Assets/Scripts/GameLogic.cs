@@ -14,9 +14,19 @@ public class GameLogic : MonoBehaviour
 
     public Field SelectedField;
     public Field LastSelectedField;
+    public void SelectField(Field field)
+    {
+        LastSelectedField = SelectedField;
+        SelectedField = field;
+    }
 
     public BaseUnit SelectedUnit;
     public BaseUnit LastSelectedUnit;
+    public void SelectUnit(BaseUnit unit)
+    {
+        LastSelectedUnit = SelectedUnit;
+        SelectedUnit = unit;
+    }
 
     public List<BaseUnit> Units = new List<BaseUnit>();
 
