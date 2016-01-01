@@ -51,13 +51,14 @@ public class FieldManager : MonoBehaviour {
 
     //Initilises and positions all tiles
     void createGrid () {
-        GameObject hexGridGO = new GameObject("HexGrid");
+        GameObject hexGridGO = new GameObject("FieldGrid");
 
         for (float y = 0; y < gridHeightInHexes; y++) {
             for (float x = 0; x < gridWidthInHexes; x++) {
                 GameObject hex = (GameObject) Instantiate(Hex);
                 //Current position in grid
                 Vector2 gridPos = new Vector2(x, y);
+                hex.name = "Field" + calcWorldCoords(gridPos);
                 hex.transform.position = calcWorldCoords(gridPos);
                 hex.transform.parent = hexGridGO.transform;
             }
