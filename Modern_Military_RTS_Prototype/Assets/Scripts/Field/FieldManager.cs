@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GridManager : MonoBehaviour {
+public class FieldManager : MonoBehaviour {
 
     public GameObject Hex;
     public int gridWidthInHexes = 10;

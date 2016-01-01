@@ -242,7 +242,7 @@ GameObject:
   - 4: {fileID: 858032401}
   - 114: {fileID: 858032400}
   m_Layer: 0
-  m_Name: GridManager
+  m_Name: FieldManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557e7e3536a5b9742ab9f9276b125c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hex: {fileID: 123312, guid: ba8cdfb634d388b42b21a208aa622208, type: 2}
+  Hex: {fileID: 184346, guid: ba8cdfb634d388b42b21a208aa622208, type: 2}
   gridWidthInHexes: 10
   gridHeightInHexes: 10
 --- !u!4 &858032401
