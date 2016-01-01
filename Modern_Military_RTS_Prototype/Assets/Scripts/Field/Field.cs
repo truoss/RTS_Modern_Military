@@ -2,31 +2,37 @@
 using System.Collections.Generic;
 
 public class Field : MonoBehaviour {
-    public Renderer rend;
-    MeshRenderer mesh;
-    public List<BaseUnit> Units;
-    //TODO: field types, values
+    Renderer mesh;
 
-	// Use this for initialization
+    public List<BaseUnit> Units;
+
+    public bool isSelected {
+        get {
+            if (GameLogic.I) {
+                return GameLogic.I.SelectedField == this;
+            } else {
+                return false;
+            }
+        }
+    }
+
 	void Start () {
-        rend = GetComponentInChildren<MeshRenderer>();
         mesh = GetComponentInChildren<MeshRenderer>();
         if (mesh == null)
             Debug.LogError("No MeshRenderer found!");
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-	    
+	    if (isSelected == true) {
+            mesh.material.color = Color.red;
+        } else {
+            mesh.material.color = Color.white;
+        }
 	}
 
     void OnMouseOver () {
         if (Input.GetMouseButtonDown(0)) {
-            rend.material.color -= Color.red;
+            GameLogic.I.SelectField(this);
         }
-    }
-
-    void OnMouseExit () {
-        rend.material.color = Color.white;
     }
 }
