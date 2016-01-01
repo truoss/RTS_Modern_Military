@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class Field : MonoBehaviour
 {
-    MeshRenderer mesh;
+    public MeshRenderer mesh;
     public List<BaseUnit> Units;
 
     //TODO: field types, values
