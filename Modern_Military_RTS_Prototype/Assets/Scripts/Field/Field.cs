@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Field : MonoBehaviour
 {
-    public MeshRenderer mesh;
+    MeshRenderer mesh;
     public List<BaseUnit> Units;
 
     //TODO: field types, values

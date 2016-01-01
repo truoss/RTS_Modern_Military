@@ -21,8 +21,8 @@ public class FieldManager : MonoBehaviour {
 
     //Initialise Hexagon size
     void setSizes() {
-        hexWidth = Hex.GetComponent<Field>().mesh.bounds.size.x;
-        hexHeight = Hex.GetComponent<Field>().mesh.bounds.size.z;
+        hexWidth = Hex.GetComponentInChildren<MeshRenderer>().bounds.size.x;
+        hexHeight = Hex.GetComponentInChildren<MeshRenderer>().bounds.size.z;
     }
 
     //Calculate first hexagon position
