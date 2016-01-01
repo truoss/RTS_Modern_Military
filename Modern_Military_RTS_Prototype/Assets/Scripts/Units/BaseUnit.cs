@@ -15,12 +15,39 @@ public class BaseUnit : MonoBehaviour
         }
     }    
 
-    public bool isMoving = false;
+    public bool isMoving
+    {
+        get
+        {
+            if (agent)
+                return agent.velocity != Vector3.zero;
+            else
+                return false;
+        }
+    }
 
     public float MovementSpeed;
 
-    public GameObject TargetField;
+    GameObject _targetField;
+    public GameObject TargetField
+    {
+        get
+        {
+            return _targetField;
+        }
+
+        set
+        {
+            if (value != _targetField)
+            {
+                _targetField = value;
+                if (agent && TargetField != null)
+                    agent.destination = TargetField.transform.position;
+            }
+        }
+    }
     public GameObject CurrentField;
+    RaycastHit hit;
 
     Color baseColor;
     void Start()
@@ -31,21 +58,43 @@ public class BaseUnit : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
-    //TODO:
-    //move from a to b
+    void Update()
+    {
+        if (isSelected == true)
+        {
+            mesh.material.color = Color.blue;
+        }
+        else
+        {
+            mesh.material.color = baseColor;
+        }
+    }
+
     public void DoFixedUpdate()
     {
-        if (TargetField && agent)
-            agent.destination = TargetField.transform.position;        
+        if (isMoving)
+        {
+            if (Physics.Raycast(transform.position, -Vector3.up, out hit, 100.0F))
+            {
+                if (hit.transform.gameObject)
+                    CurrentField = hit.transform.gameObject;
+            }
+        }
     }
 
     void OnMouseOver()
     {
-        mesh.material.color -= new Color(0.1F, 0, 0) * Time.deltaTime;
+        if(!isSelected)
+            mesh.material.color = baseColor * 1.5f;
+
+        /*
+        * Done in GameState
+        * Do only hover?
         if (Input.GetMouseButtonDown(0))
         {
             GameLogic.I.SelectUnit(this);
         }
+        */
     }
 
     void OnMouseExit()

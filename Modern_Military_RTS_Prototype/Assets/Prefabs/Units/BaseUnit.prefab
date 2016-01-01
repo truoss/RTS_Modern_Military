@@ -28,6 +28,7 @@ GameObject:
   - 4: {fileID: 411228}
   - 33: {fileID: 3345766}
   - 23: {fileID: 2307812}
+  - 65: {fileID: 6507172}
   m_Layer: 0
   m_Name: truck_mesh
   m_TagString: Untagged
@@ -109,6 +110,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &6507172
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151566}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0123145655, y: 0.026319467, z: 0.01293185}
+  m_Center: {x: 4.656613e-10, y: -0.0011597357, z: 0.006534072}
 --- !u!114 &11492994
 MonoBehaviour:
   m_ObjectHideFlags: 1

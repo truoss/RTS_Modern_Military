@@ -1,16 +1,29 @@
 ﻿using UnityEngine;
+using GameStates;
 using System.Collections;
 using System.Collections.Generic;
 
 public class GameLogic : MonoBehaviour
 {
     public static GameLogic I;
+    public static StateMachine StateMachine;
+
     void Awake()
     {
         I = this;
     }
 
+    void Start()
+    {
+        if(TestMap)
+            TestMap.DoStart();
+
+        StateMachine = new StateMachine();
+        StateMachine.SetState(new MoveUnitState());
+    }
+
     public FieldManager FieldManager;
+    public TestMap TestMap;
 
     public Field SelectedField;
     public Field LastSelectedField;
@@ -29,12 +42,7 @@ public class GameLogic : MonoBehaviour
     }
 
     public List<BaseUnit> Units = new List<BaseUnit>();
-
-    void StartGame()
-    {
-        //Create Map here;
-        //place units here;
-    }
+    
 
     void FixedUpdate()
     {
@@ -50,6 +58,11 @@ public class GameLogic : MonoBehaviour
 
     void Update()
     {
-        //Update Units
+        StateMachine.Update();
+    }
+
+    void OnDestroy()
+    {
+        StateMachine.Abort();
     }
 }

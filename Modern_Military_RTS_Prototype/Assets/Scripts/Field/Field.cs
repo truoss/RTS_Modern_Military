@@ -31,8 +31,13 @@ public class Field : MonoBehaviour {
 	}
 
     void OnMouseOver () {
-        if (Input.GetMouseButtonDown(0)) {
-            GameLogic.I.SelectField(this);
+        /*
+        * Done in GameState
+        * Do only hover?
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameLogic.I.SelectUnit(this);
         }
+        */
     }
 }
