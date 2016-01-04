@@ -8,7 +8,7 @@ namespace GameStates
     {
         RaycastHit hit;
         
-        BaseUnit unit;
+        Unit unit;
         Field field;        
 
         public void Finished()
@@ -38,10 +38,10 @@ namespace GameStates
             {
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Camera.main.farClipPlane))
                 {
-                    if (hit.transform.GetComponent<BaseUnit>())
+                    if (hit.transform.GetComponent<Unit>())
                     {
                         // select unit deselect field
-                        unit = hit.transform.GetComponent<BaseUnit>();
+                        unit = hit.transform.GetComponent<Unit>();
                         GameLogic.I.SelectUnit(unit);
                         GameLogic.I.SelectField(null);
                     }

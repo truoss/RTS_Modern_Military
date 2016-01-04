@@ -13,9 +13,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitLibrary:
   - Name: Inf
-    MobilityType: 0
-    SpecialType: 0
+    Material: {fileID: 2100000, guid: e68e111456d3aa042a0b2f269e5b7123, type: 2}
+    Mesh: {fileID: 102390, guid: 45120b84203cee2489eb44d722f36465, type: 2}
+    mobilityType: 0
+    specialType: 0
     BestAgainst: 0
+    Cargo:
+      maxCargo: 5
+      allowedCargoTypes: {x: 0, y: 1, z: 0}
+      defaultCargo: {x: 0, y: 5, z: 0}
     Attributes:
       Mobility: 4
       FirepowerSoft: 2
@@ -23,16 +29,20 @@ MonoBehaviour:
       Firerange: 1
       Cover: 3
       Visibility: 0.2
-      Fuel: 0
       FuelConsumption: 0
-      Ammunition: 5
       AmmunitionConsumption: 0.5
-      Softpoint: 10
-      Hardpoint: 0
+      maxSoftpoint: 10
+      maxHardpoint: 0
   - Name: Inf (AT)
-    MobilityType: 0
-    SpecialType: 0
+    Material: {fileID: 2100000, guid: 68480537de2b28e4fa8c75b6d277954e, type: 2}
+    Mesh: {fileID: 102390, guid: 45120b84203cee2489eb44d722f36465, type: 2}
+    mobilityType: 0
+    specialType: 0
     BestAgainst: 1
+    Cargo:
+      maxCargo: 4
+      allowedCargoTypes: {x: 0, y: 1, z: 0}
+      defaultCargo: {x: 0, y: 4, z: 0}
     Attributes:
       Mobility: 3
       FirepowerSoft: 2
@@ -40,9 +50,28 @@ MonoBehaviour:
       Firerange: 1
       Cover: 3
       Visibility: 0.2
-      Fuel: 0
       FuelConsumption: 0
-      Ammunition: 4
       AmmunitionConsumption: 0.5
-      Softpoint: 10
-      Hardpoint: 0
+      maxSoftpoint: 10
+      maxHardpoint: 0
+  - Name: Trucks
+    Material: {fileID: 2100000, guid: 160224fa1cf0cea468dabc678fefca0d, type: 2}
+    Mesh: {fileID: 102390, guid: 45120b84203cee2489eb44d722f36465, type: 2}
+    mobilityType: 1
+    specialType: 1
+    BestAgainst: 0
+    Cargo:
+      maxCargo: 24
+      allowedCargoTypes: {x: 1, y: 1, z: 1}
+      defaultCargo: {x: 0, y: 0, z: 0}
+    Attributes:
+      Mobility: 8
+      FirepowerSoft: 1
+      FirepowerHard: 0
+      Firerange: 1
+      Cover: 2
+      Visibility: 0.8
+      FuelConsumption: 0.5
+      AmmunitionConsumption: 0.1
+      maxSoftpoint: 6
+      maxHardpoint: 0

@@ -12,42 +12,30 @@ GameObject:
   - 54: {fileID: 5438764}
   - 195: {fileID: 19526514}
   m_Layer: 0
-  m_Name: BaseUnit
+  m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &151566
+--- !u!1 &138684
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 411228}
-  - 33: {fileID: 3345766}
-  - 23: {fileID: 2307812}
-  - 65: {fileID: 6507172}
+  - 4: {fileID: 418628}
+  - 33: {fileID: 3378462}
+  - 23: {fileID: 2318502}
+  - 64: {fileID: 6438172}
   m_Layer: 0
-  m_Name: truck_mesh
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &411228
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 151566}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 413392}
-  m_RootOrder: 0
 --- !u!4 &413392
 Transform:
   m_ObjectHideFlags: 1
@@ -56,30 +44,41 @@ Transform:
   m_GameObject: {fileID: 128142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 411228}
+  - {fileID: 418628}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2307812
+--- !u!4 &418628
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 138684}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalScale: {x: 0.4, y: 0.05, z: 0.4}
+  m_Children: []
+  m_Father: {fileID: 413392}
+  m_RootOrder: 0
+--- !u!23 &2318502
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 151566}
+  m_GameObject: {fileID: 138684}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: a89576e1ada8d194eb846ad3dffdae59, type: 2}
-  - {fileID: 2100000, guid: dd296f9c3063bcd42bb5adf762687e0e, type: 2}
+  - {fileID: 2100000, guid: e68e111456d3aa042a0b2f269e5b7123, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
   m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
+  m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
@@ -88,13 +87,13 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3345766
+--- !u!33 &3378462
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 151566}
-  m_Mesh: {fileID: 4300000, guid: 70bf1e65dc4349d4db1a0ae8f5d80f70, type: 3}
+  m_GameObject: {fileID: 138684}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &5438764
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -110,18 +109,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6507172
-BoxCollider:
+--- !u!64 &6438172
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 151566}
+  m_GameObject: {fileID: 138684}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0123145655, y: 0.026319467, z: 0.01293185}
-  m_Center: {x: 4.656613e-10, y: -0.0011597357, z: 0.006534072}
+  m_Convex: 0
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &11492994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,9 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5df6d7268d041e4fb26ee7e4226a5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMoving: 0
-  MovementSpeed: 1
-  TargetField: {fileID: 0}
+  Side: 0
+  curSoftpoints: 0
+  curHardpoints: 0
+  curCargo: {x: 0, y: 0, z: 0}
   CurrentField: {fileID: 0}
 --- !u!195 &19526514
 NavMeshAgent:
@@ -144,7 +144,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 128142}
   m_Enabled: 1
-  m_Radius: 0.02
+  m_Radius: 0.25
   m_Speed: 0.2
   m_Acceleration: 8
   avoidancePriority: 50
@@ -153,7 +153,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.02
+  m_Height: 0.1
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class Field : MonoBehaviour {
     Renderer mesh;
 
-    public List<BaseUnit> Units;
+    public List<Unit> Units;
 
     public bool isSelected {
         get {
