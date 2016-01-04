@@ -25,8 +25,6 @@ public class Field : MonoBehaviour {
 	void Update () {
 	    if (isSelected == true) {
             mesh.material.color = Color.red;
-        } else {
-            mesh.material.color = Color.white;
         }
 	}
 

@@ -2,9 +2,14 @@
 
 public class FieldManager : MonoBehaviour {
 
-    public GameObject Hex;
+    public const int PLAIN_HEX = 0, URBAN_HEX = 1;
+
     public int gridWidthInHexes = 10;
     public int gridHeightInHexes = 10;
+
+    public GameObject Hex;
+    public GameObject FieldPlainPrefab;
+    public GameObject FieldUrbanPrefab;
 
     //Hex tile size ingame
     private float hexWidth;
@@ -18,6 +23,16 @@ public class FieldManager : MonoBehaviour {
 
 	void Update () {
 	}
+
+    GameObject GetHex (int id) {
+        switch (id) {
+            case PLAIN_HEX:
+                return FieldPlainPrefab;
+            case URBAN_HEX:
+                return FieldUrbanPrefab;
+        }
+        return FieldPlainPrefab;
+    }
 
     //Initialise Hexagon size
     void setSizes() {
@@ -55,7 +70,7 @@ public class FieldManager : MonoBehaviour {
 
         for (float y = 0; y < gridHeightInHexes; y++) {
             for (float x = 0; x < gridWidthInHexes; x++) {
-                GameObject hex = (GameObject) Instantiate(Hex);
+                GameObject hex = (GameObject) Instantiate(GetHex(Random.Range(0,2)));
                 //Current position in grid
                 Vector2 gridPos = new Vector2(x, y);
                 hex.name = "Field" + calcWorldCoords(gridPos);
