@@ -11,3 +11,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410fcdb4b9f129f4392028890c2729b1, type: 3}
   m_Name: UnitDataAsset
   m_EditorClassIdentifier: 
+  UnitLibrary:
+  - Name: Inf
+    MobilityType: 0
+    SpecialType: 0
+    BestAgainst: 0
+    Attributes:
+      Mobility: 4
+      FirepowerSoft: 2
+      FirepowerHard: 1
+      Firerange: 1
+      Cover: 3
+      Visibility: 0.2
+      Fuel: 0
+      FuelConsumption: 0
+      Ammunition: 5
+      AmmunitionConsumption: 0.5
+      Softpoint: 10
+      Hardpoint: 0
+  - Name: Inf (AT)
+    MobilityType: 0
+    SpecialType: 0
+    BestAgainst: 1
+    Attributes:
+      Mobility: 3
+      FirepowerSoft: 2
+      FirepowerHard: 4
+      Firerange: 1
+      Cover: 3
+      Visibility: 0.2
+      Fuel: 0
+      FuelConsumption: 0
+      Ammunition: 4
+      AmmunitionConsumption: 0.5
+      Softpoint: 10
+      Hardpoint: 0
