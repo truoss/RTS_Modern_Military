@@ -18,7 +18,7 @@ public class FieldManager : MonoBehaviour {
     public Field[] SpawnableFields;
 
     //Generate grid on gamestart
-    void Start () {
+    public bool Init () {
         setSizes();
         BuildMap();
         SpawnableFields = new Field[2];
@@ -28,6 +28,7 @@ public class FieldManager : MonoBehaviour {
         SpawnableFields[1] = Map[Mathf.RoundToInt(gridWidthInHexes - 1), Mathf.RoundToInt(gridHeightInHexes * 0.5f)];
         Map[Mathf.RoundToInt(gridWidthInHexes - 1), Mathf.RoundToInt(gridHeightInHexes * 0.5f)].PlayerSide = Player.Side.Red;
         Map[Mathf.RoundToInt(gridWidthInHexes - 1), Mathf.RoundToInt(gridHeightInHexes * 0.5f)].isSpawnable = true;
+        return true;
     }
 
     //Initialise Hexagon size

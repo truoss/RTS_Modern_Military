@@ -1,15 +1,26 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class StartGameState : MonoBehaviour {
+namespace GameStates {
+    public class StartGameState : IGameState {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+        private FieldManager FieldManager;
+        private UnitManager UnitManager;
+
+        public StartGameState (FieldManager FieldManager, UnitManager UnitManager) {
+            this.FieldManager = FieldManager;
+            this.UnitManager = UnitManager;
+        }
+
+        public void Finished () {
+        }
+
+        public void Init () {
+            FieldManager.Init();
+            UnitManager.Init(FieldManager);
+        }
+
+        IGameState IGameState.Update () {
+            return new MoveUnitState();
+        }
+    }
 }

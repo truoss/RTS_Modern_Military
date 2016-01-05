@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class UnitManager : MonoBehaviour
 {
@@ -26,5 +25,33 @@ public class UnitManager : MonoBehaviour
         rigid.isKinematic = true;
 
         return unit;
+    }
+
+    internal void Init (FieldManager FieldManager) {
+        //Red
+        var unit = CreateRedRandomUnit();
+        Field field = null;
+        for (int i = 0; i < FieldManager.SpawnableFields.Length; i++) {
+            if (FieldManager.SpawnableFields[i].PlayerSide == Player.Side.Red) {
+                field = FieldManager.SpawnableFields[i];
+                break;
+            }
+        }
+        if (field != null) {
+            GameLogic.I.Units.Add(unit);
+            unit.transform.position = field.transform.position;
+        }
+        //Blue
+        unit = CreateBlueRandomUnit();
+        for (int i = 0; i < FieldManager.SpawnableFields.Length; i++) {
+            if (FieldManager.SpawnableFields[i].PlayerSide == Player.Side.Blue) {
+                field = FieldManager.SpawnableFields[i];
+                break;
+            }
+        }
+        if (field != null) {
+            GameLogic.I.Units.Add(unit);
+            unit.transform.position = field.transform.position;
+        }
     }
 }

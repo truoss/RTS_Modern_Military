@@ -85,6 +85,45 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &269292361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 269292363}
+  - 114: {fileID: 269292362}
+  m_Layer: 0
+  m_Name: UnitManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &269292362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 269292361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8405ee08c19805747b2e5f6a3c585609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &269292363
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 269292361}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.7320507, y: 0, z: -3.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!1 &702434208
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +298,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f54e4d226e23a249a07c784cbadbe19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FieldManager: {fileID: 0}
+  TickTimeMovement: 2
+  TickTimeCombat: 5
+  FieldManager: {fileID: 858032400}
+  UnitManager: {fileID: 269292362}
   TestMap: {fileID: 0}
   SelectedField: {fileID: 0}
   LastSelectedField: {fileID: 0}
@@ -307,8 +349,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridWidthInHexes: 10
   gridHeightInHexes: 10
-  Hex: {fileID: 114146, guid: 58457a60b3d9da547865c41ce82e31f1, type: 2}
-  MatPlain: {fileID: 0}
+  HexMesh: {fileID: 114146, guid: 58457a60b3d9da547865c41ce82e31f1, type: 2}
+  SpawnableFields: []
 --- !u!4 &858032401
 Transform:
   m_ObjectHideFlags: 0

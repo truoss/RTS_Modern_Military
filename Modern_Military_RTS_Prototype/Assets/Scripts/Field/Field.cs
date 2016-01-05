@@ -4,8 +4,7 @@ using System.Collections.Generic;
 public class Field : MonoBehaviour {
     Renderer mesh;
 
-    public List<Unit> Units;
-    public string Name;
+    public List<Unit> Units = new List<Unit>();
     private FieldData Data;
 
     public bool isSpawnable = false;
