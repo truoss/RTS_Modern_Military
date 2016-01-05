@@ -11,3 +11,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c3ab4adb50b3ac42aa4359a297fa282, type: 3}
   m_Name: FieldDataAsset
   m_EditorClassIdentifier: 
+  FieldTypes:
+  - fieldType: 0
+    Material: {fileID: 2100000, guid: f4d39e4ea513fc649892fc3ab85d7ed7, type: 2}
+    Mesh: {fileID: 114146, guid: 58457a60b3d9da547865c41ce82e31f1, type: 2}
+    FieldMobilityType:
+    - MobilityType: 0
+      FieldAttribute:
+        cover: 0.1
+        mobility: -0.1
+        visibility: -0.2
+    - MobilityType: 1
+      FieldAttribute:
+        cover: 0
+        mobility: -0.1
+        visibility: 0
+    - MobilityType: 2
+      FieldAttribute:
+        cover: 0
+        mobility: 0
+        visibility: 0
+  - fieldType: 1
+    Material: {fileID: 2100000, guid: 0d04fe2fbb38d6846bc76b2d2a579a70, type: 2}
+    Mesh: {fileID: 114146, guid: 58457a60b3d9da547865c41ce82e31f1, type: 2}
+    FieldMobilityType:
+    - MobilityType: 0
+      FieldAttribute:
+        cover: 0.8
+        mobility: 0.1
+        visibility: -0.75
+    - MobilityType: 1
+      FieldAttribute:
+        cover: 0.25
+        mobility: 0.2
+        visibility: -0.5
+    - MobilityType: 2
+      FieldAttribute:
+        cover: 0.25
+        mobility: 0.2
+        visibility: -0.5

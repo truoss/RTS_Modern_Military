@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f54e4d226e23a249a07c784cbadbe19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FieldManager: {fileID: 858032400}
+  FieldManager: {fileID: 0}
   TestMap: {fileID: 0}
   SelectedField: {fileID: 0}
   LastSelectedField: {fileID: 0}
@@ -307,9 +307,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridWidthInHexes: 10
   gridHeightInHexes: 10
-  Hex: {fileID: 184346, guid: ba8cdfb634d388b42b21a208aa622208, type: 2}
-  FieldPlainPrefab: {fileID: 184346, guid: 6e4490a01e7ea5142b72e511b906fa9a, type: 2}
-  FieldUrbanPrefab: {fileID: 184346, guid: ef30b6eda267c2947976d81b1aece62c, type: 2}
+  Hex: {fileID: 114146, guid: 58457a60b3d9da547865c41ce82e31f1, type: 2}
+  MatPlain: {fileID: 0}
 --- !u!4 &858032401
 Transform:
   m_ObjectHideFlags: 0

@@ -5,21 +5,15 @@ public class Field : MonoBehaviour {
     Renderer mesh;
 
     public List<Unit> Units;
+    public string Name;
+    
+    public FieldData.FieldType fieldType;
 
-    public bool isSelected {
-        get {
-            if (GameLogic.I) {
-                return GameLogic.I.SelectedField == this;
-            } else {
-                return false;
-            }
-        }
-    }
-
-	void Start () {
+    public void Init () {
         mesh = GetComponentInChildren<MeshRenderer>();
-        if (mesh == null)
+        if (mesh == null) {
             Debug.LogError("No MeshRenderer found!");
+        }
 	}
 
 	void Update () {
@@ -37,5 +31,15 @@ public class Field : MonoBehaviour {
             GameLogic.I.SelectUnit(this);
         }
         */
+    }
+
+    public bool isSelected {
+        get {
+            if (GameLogic.I) {
+                return GameLogic.I.SelectedField == this;
+            } else {
+                return false;
+            }
+        }
     }
 }
