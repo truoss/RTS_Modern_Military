@@ -21,7 +21,7 @@ public class UnitManager : MonoBehaviour
         var gObj = new GameObject("Unit");
         var unit = gObj.AddComponent<Unit>();
         unit.Side = side;
-        unit.InitData(UnitDataAsset.I.UnitLibrary[Random.Range(0, UnitDataAsset.I.UnitLibrary.Length-1)]);
+        unit.InitData(UnitDataAsset.I.UnitLibrary[Random.Range(0, UnitDataAsset.I.UnitLibrary.Length)]);
         var rigid = gObj.AddComponent<Rigidbody>();
         rigid.isKinematic = true;
 
