@@ -6,21 +6,47 @@ public class Field : MonoBehaviour {
 
     public List<Unit> Units;
     public string Name;
-    
-    public FieldData.FieldType fieldType;
+    private FieldData Data;
+
+    public bool isSpawnable = false;
+    public Player.Side PlayerSide = Player.Side.Neutral;
+
+    public FieldData.FieldType fieldType = FieldData.FieldType.NotSet;
 
     public void Init () {
+        if (fieldType == FieldData.FieldType.NotSet) {
+            Debug.LogError("fieldType not set", this);
+            return;
+        }
+        for (int i = 0; i < FieldDataAsset.I.FieldTypes.Length; i++) {
+            if (FieldDataAsset.I.FieldTypes[i].fieldType == fieldType) {
+                Data = FieldDataAsset.I.FieldTypes[i];
+                break;
+            }
+        }
+        if (Data == null) {
+            Debug.LogError("couldn't find " + fieldType.ToString() + "in FieldAssetData", this);
+            return;
+        }
+        GameObject hex = (GameObject) Instantiate(Data.Mesh);
+        hex.transform.SetParent(transform);
         mesh = GetComponentInChildren<MeshRenderer>();
         if (mesh == null) {
             Debug.LogError("No MeshRenderer found!");
+        } else {
+            mesh.material = new Material(Data.Material);
         }
-	}
+    }
 
-	void Update () {
-	    if (isSelected == true) {
+    void Update () {
+        if (isSelected == true) {
             mesh.material.color = Color.red;
+        } else if (isSpawnable == true) {
+            mesh.material.color = Color.yellow;
+        } else {
+            mesh.material.color = Data.Material.color;
         }
-	}
+    }
 
     void OnMouseOver () {
         /*

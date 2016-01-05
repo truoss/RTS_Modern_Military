@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Player : MonoBehaviour
 {
     public enum Side
     {
         Blue,
-        Red
+        Red,
+        Neutral
     }
 }

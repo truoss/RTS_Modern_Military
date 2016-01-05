@@ -5,7 +5,8 @@ public class FieldData {
 
     public enum FieldType {
         Plain,
-        Urban
+        Urban,
+        NotSet
     }
 
     public FieldType fieldType;

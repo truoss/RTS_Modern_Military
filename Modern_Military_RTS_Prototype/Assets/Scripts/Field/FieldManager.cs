@@ -14,13 +14,20 @@ public class FieldManager : MonoBehaviour {
     private float hexWidth;
     private float hexHeight;
 
+    public Field[,] Map;
+    public Field[] SpawnableFields;
+
     //Generate grid on gamestart
     void Start () {
         setSizes();
-        BuildGrid();
-    }
-
-    void Update () {
+        BuildMap();
+        SpawnableFields = new Field[2];
+        SpawnableFields[0] = Map[0, Mathf.RoundToInt(gridHeightInHexes * 0.5f)];
+        Map[0, Mathf.RoundToInt(gridHeightInHexes * 0.5f)].PlayerSide = Player.Side.Blue;
+        Map[0, Mathf.RoundToInt(gridHeightInHexes * 0.5f)].isSpawnable = true;
+        SpawnableFields[1] = Map[Mathf.RoundToInt(gridWidthInHexes - 1), Mathf.RoundToInt(gridHeightInHexes * 0.5f)];
+        Map[Mathf.RoundToInt(gridWidthInHexes - 1), Mathf.RoundToInt(gridHeightInHexes * 0.5f)].PlayerSide = Player.Side.Red;
+        Map[Mathf.RoundToInt(gridWidthInHexes - 1), Mathf.RoundToInt(gridHeightInHexes * 0.5f)].isSpawnable = true;
     }
 
     //Initialise Hexagon size
@@ -54,11 +61,11 @@ public class FieldManager : MonoBehaviour {
     }
 
     //Initilises and positions all tiles
-    public void BuildGrid () {
+    public void BuildMap () {
         GameObject hexGridGO = new GameObject("FieldGrid");
-
-        for (float y = 0; y < gridHeightInHexes; y++) {
-            for (float x = 0; x < gridWidthInHexes; x++) { 
+        Map = new Field[gridHeightInHexes, gridWidthInHexes];
+        for (int y = 0; y < gridHeightInHexes; y++) {
+            for (int x = 0; x < gridWidthInHexes; x++) {
                 var gobj = new GameObject("Field" + calcWorldCoords(new Vector2(x, y)));
                 gobj.transform.SetParent(hexGridGO.transform);
                 var field = gobj.AddComponent<Field>();
@@ -67,16 +74,15 @@ public class FieldManager : MonoBehaviour {
                     gobj.AddComponent<Rigidbody>();
                     gobj.GetComponent<Rigidbody>().isKinematic = true;
                 }
-                GameObject hex = (GameObject) Instantiate(HexMesh);
-                hex.transform.SetParent(gobj.transform);
-                gobj.transform.position = calcWorldCoords(new Vector2(x, y));
                 field.Init();
+                gobj.transform.position = calcWorldCoords(new Vector2(x, y));
+                Map[x, y] = field;
             }
         }
         Debug.Log("Done creating Grid");
     }
 
     public FieldData.FieldType GetRandomFieldType () {
-        return FieldData.FieldType.Plain;
+        return FieldDataAsset.I.FieldTypes[Random.Range(0, FieldDataAsset.I.FieldTypes.Length)].fieldType;
     }
 }
