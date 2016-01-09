@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
 public class FieldManager : MonoBehaviour {
-
+    public static FieldManager I;
     //Tile IDs
-    public const int PLAIN_HEX = 0, URBAN_HEX = 1;
+    int lastFieldID = 0;
+
 
     public int gridWidthInHexes = 10;
     public int gridHeightInHexes = 10;
@@ -16,6 +17,10 @@ public class FieldManager : MonoBehaviour {
 
     public Field[,] Map;
     public Field[] SpawnableFields;
+
+    void Awake () {
+        I = this;
+    }
 
     //Generate grid on gamestart
     public bool Init () {
@@ -65,6 +70,8 @@ public class FieldManager : MonoBehaviour {
     public void BuildMap () {
         GameObject hexGridGO = new GameObject("FieldGrid");
         Map = new Field[gridHeightInHexes, gridWidthInHexes];
+        Random.seed = 1337;
+
         for (int y = 0; y < gridHeightInHexes; y++) {
             for (int x = 0; x < gridWidthInHexes; x++) {
                 var gobj = new GameObject("Field" + calcWorldCoords(new Vector2(x, y)));
@@ -76,6 +83,7 @@ public class FieldManager : MonoBehaviour {
                     gobj.AddComponent<Rigidbody>();
                     gobj.GetComponent<Rigidbody>().isKinematic = true;
                 }
+                field.FieldID = lastFieldID++;
                 field.Init();
                 gobj.transform.position = calcWorldCoords(new Vector2(x, y));
                 Map[x, y] = field;
@@ -85,6 +93,8 @@ public class FieldManager : MonoBehaviour {
     }
 
     public FieldData.FieldType GetRandomFieldType () {
-        return FieldDataAsset.I.FieldTypes[Random.Range(0, FieldDataAsset.I.FieldTypes.Length)].fieldType;
+        //return FieldDataAsset.I.FieldTypes[Random.Range(0, FieldDataAsset.I.FieldTypes.Length)].fieldType;
+        //Debug.LogWarning(Mathf.RoundToInt(FieldDataAsset.I.FieldTypes.Length * Random.value), this);
+        return FieldDataAsset.I.FieldTypes[Mathf.RoundToInt((FieldDataAsset.I.FieldTypes.Length - 1) * Random.value)].fieldType;
     }
 }
