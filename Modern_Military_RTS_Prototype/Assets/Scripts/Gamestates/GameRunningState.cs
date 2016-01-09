@@ -34,6 +34,13 @@ namespace GameStates {
                 LastTick = Time.time;
             }
 
+            //BattleTickRate (Kampfauswertung)
+
+            //Check wincondition
+            // true -> Change player states
+
+            //Check for async
+
             return this;
         }
     }

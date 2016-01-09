@@ -59,7 +59,10 @@ namespace PlayerStates
                         {
                             //set move target if unit was selected
                             field = hit.transform.GetComponent<Field>();
-                            GameLogic.I.SelectedUnit.TargetField = field.gameObject;
+
+                            //TODO: Network cmd
+                            UnitManager.I.CmdMoveUnit(unit.UnitID, field.FieldID);
+                            //GameLogic.I.SelectedUnit.TargetField = field.gameObject;
 
                             GameLogic.I.SelectUnit(null);
                             //return new MoveUnitState();

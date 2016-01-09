@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 public class Field : MonoBehaviour {
+    public int FieldID;
     Renderer mesh;
 
     public List<Unit> Units = new List<Unit>();

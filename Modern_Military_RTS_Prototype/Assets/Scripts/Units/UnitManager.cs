@@ -71,6 +71,21 @@ public class UnitManager : NetworkBehaviour
         return null;
     }
 
+    [Command]
+    public void CmdMoveUnit (int UnitID, int FieldID) //TODO: WaypointArray
+    {
+        Debug.LogWarning("CmdMoveUnit: " + UnitID + ", " + FieldID, this);
+        //TODO: set unit move target on all Clients
+    }
+
+    /*
+    [Command]
+    public void CmdMoveUnit (int UnitID, int[] Waypoints)
+    {
+        //TODO: set unit move target on all Clients
+    }
+    */
+
     /*
     [ClientRpc]
     public void RpcCreateUnit(string UnitName, int ID, Player.Side side)
