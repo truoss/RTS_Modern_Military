@@ -3,44 +3,100 @@ using UnityEngine.Networking;
 
 public class UnitManager : NetworkBehaviour
 {
-    public void CreateInfantry()
-    {
-        if (GameLogic.I.GetLocalPlayer().side != Player.Side.Neutral && GameLogic.I.GetLocalPlayer().curUnitsSpawned < GameLogic.I.GetLocalPlayer().spawnLimit)
-        {
-            CmdCreateInfantry(GameLogic.I.GetLocalPlayer().side);
-            GameLogic.I.GetLocalPlayer().curUnitsSpawned++;
-        }
+    int lastUnitID = 0;
+
+    public static UnitManager I;
+    void Awake() {
+        I = this;
     }
 
     [Command]
-    void CmdCreateInfantry(Player.Side side)
+    public void CmdCreateUnit(string UnitName, Player.Side side)
     {
+        //Server
         Debug.LogWarning("CmdCreateInfantry: " + side, this);
-        RpcCreateUnit(UnitDataAsset.I.UnitLibrary[0].Name, side);
+        //Generate ID
+        //string ID = lastUnitID++;
+        //RpcCreateUnit(UnitName, lastUnitID++, side);
+        var tmp = CreateUnit(UnitName, lastUnitID++, side);
+        if (tmp)
+            NetworkServer.Spawn(tmp.gameObject);
+        else
+            Debug.LogError("Could not create Unit!", this);
     }
 
-    
+    Unit CreateUnit (string UnitName, int ID, Player.Side side) {
+        UnitData data = null;
+        for (int i = 0; i < UnitDataAsset.I.UnitLibrary.Length; i++) {
+            if (UnitDataAsset.I.UnitLibrary[i].Name == UnitName) {
+                data = UnitDataAsset.I.UnitLibrary[i];
+                break;
+            }
+        }
+
+        if (data == null) {
+            Debug.LogError("No UnitData found: " + UnitName, this);
+            return null;
+        }
+
+        var gObj = new GameObject("Unit");
+        //NetworkServer.SpawnWithClientAuthority(gObj, GetComponent<Player>().gameObject);
+        gObj.layer = 10;
+        var unit = gObj.AddComponent<Unit>();
+        unit.UnitID = ID;
+        unit.Side = side;
+        unit.InitData(data);
+        var rigid = gObj.AddComponent<Rigidbody>();
+        rigid.isKinematic = true;
+
+        Field field = null;
+        for (int i = 0; i < GameLogic.I.FieldManager.SpawnableFields.Length; i++) {
+            if (GameLogic.I.FieldManager.SpawnableFields[i].PlayerSide == side) {
+                field = GameLogic.I.FieldManager.SpawnableFields[i];
+                break;
+            }
+        }
+
+        if (field != null) {
+            field.Units.Add(unit);
+            unit.CurrentField = field.gameObject;
+            unit.UpdateStackPosition();
+            GameLogic.I.Units.Add(unit);
+            //player.Units.Add(unit);
+            unit.transform.position = field.transform.position;
+            return unit;
+        } else 
+            Destroy(unit.gameObject);
+
+        return null;
+    }
+
+    /*
     [ClientRpc]
-    public void RpcCreateUnit(string unitName, Player.Side side)
+    public void RpcCreateUnit(string UnitName, int ID, Player.Side side)
     {
-        Debug.LogWarning("RpcCreateUnit: " + unitName + " , " + side, this);
+        //Jeder Client
+        Debug.LogWarning("RpcCreateUnit: " + UnitName + " , " + side, this);
         UnitData data = null;
         for (int i = 0; i < UnitDataAsset.I.UnitLibrary.Length; i++)
         {
-            if (UnitDataAsset.I.UnitLibrary[i].Name == unitName)
+            if (UnitDataAsset.I.UnitLibrary[i].Name == UnitName)
             {
                 data = UnitDataAsset.I.UnitLibrary[i];
                 break;
             }
         }
 
-        if (data == null)
+        if (data == null) {
+            Debug.LogError("No UnitData found: " + UnitName, this);
             return;
+        }
         
         var gObj = new GameObject("Unit");
         //NetworkServer.SpawnWithClientAuthority(gObj, GetComponent<Player>().gameObject);
         gObj.layer = 10;
         var unit = gObj.AddComponent<Unit>();
+        unit.UnitID = ID;
         unit.Side = side;
         unit.InitData(data);
         var rigid = gObj.AddComponent<Rigidbody>();
@@ -67,63 +123,6 @@ public class UnitManager : NetworkBehaviour
         }
         else
             Destroy(unit.gameObject);
-    }
-
-
-    internal void Init (FieldManager FieldManager) {
-        /*
-        //Red
-        var unit = CreateRedRandomUnit();
-        Field field = null;
-        for (int i = 0; i < FieldManager.SpawnableFields.Length; i++) {
-            if (FieldManager.SpawnableFields[i].PlayerSide == Player.Side.Red) {
-                field = FieldManager.SpawnableFields[i];
-                break;
-            }
-        }
-        if (field != null) {
-            GameLogic.I.Units.Add(unit);
-            unit.transform.position = field.transform.position;
-        }
-        //Blue
-        unit = CreateBlueRandomUnit();
-        for (int i = 0; i < FieldManager.SpawnableFields.Length; i++) {
-            if (FieldManager.SpawnableFields[i].PlayerSide == Player.Side.Blue) {
-                field = FieldManager.SpawnableFields[i];
-                break;
-            }
-        }
-        if (field != null) {
-            GameLogic.I.Units.Add(unit);
-            unit.transform.position = field.transform.position;
-        }
-        */
-    }
-
-    /*
-    [ContextMenu("Create Red Unit")]
-    public Unit CreateRedRandomUnit()
-    {
-        return CreateRandomUnit(Player.Side.Red);
-    }
-
-    [ContextMenu("Create Blue Unit")]
-    public Unit CreateBlueRandomUnit()
-    {
-        return CreateRandomUnit(Player.Side.Blue);
-    }
-
-    //[ContextMenu("Create Unit")]
-    public Unit CreateRandomUnit(Player.Side side)
-    {
-        var gObj = new GameObject("Unit");
-        var unit = gObj.AddComponent<Unit>();
-        unit.Side = side;
-        unit.InitData(UnitDataAsset.I.UnitLibrary[Random.Range(0, UnitDataAsset.I.UnitLibrary.Length)]);
-        var rigid = gObj.AddComponent<Rigidbody>();
-        rigid.isKinematic = true;
-
-        return unit;
     }
     */
 }

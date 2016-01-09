@@ -26,6 +26,13 @@ public class Player : MonoBehaviour
             statemachine.Update();
     }
 
+    public void CreateInfantry () {
+        if (GameLogic.I.GetLocalPlayer().side != Player.Side.Neutral && GameLogic.I.GetLocalPlayer().curUnitsSpawned < GameLogic.I.GetLocalPlayer().spawnLimit) {
+            UnitManager.I.CmdCreateUnit("Inf",  GameLogic.I.GetLocalPlayer().side);
+            GameLogic.I.GetLocalPlayer().curUnitsSpawned++;
+        }
+    }
+
     void OnDestroy()
     {
         if (statemachine != null)

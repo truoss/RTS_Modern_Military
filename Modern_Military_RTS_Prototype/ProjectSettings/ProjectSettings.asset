@@ -480,7 +480,7 @@ PlayerSettings:
   WebGL::emscriptenArgs: 
   WebGL::template: APPLICATION:Default
   additionalIl2CppArgs::additionalIl2CppArgs: 
-  cloudProjectId: ff40ee1a-af91-4551-94db-d981453c161d
-  projectName: SampleScenePong
-  organizationId: unityguillaume
+  cloudProjectId: cd246b09-f25b-4760-87d5-25f203dda1fb
+  projectName: RTS_MODERN_MILITARY
+  organizationId: pixels533
   cloudEnabled: 0

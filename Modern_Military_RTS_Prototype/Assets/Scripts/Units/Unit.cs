@@ -2,6 +2,7 @@
 using UnityEngine.Networking;
 
 public class Unit : MonoBehaviour {
+    public int UnitID;
     Renderer mesh;
     UnitData data;
     public UnitData UnitStats { get { return data; } }

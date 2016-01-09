@@ -37,7 +37,7 @@ public class TestHud : MonoBehaviour
 
     public void OnCreateInfantry()
     {
-        GameLogic.I.GetLocalPlayer().GetComponent<UnitManager>().CreateInfantry();
+        GameLogic.I.GetLocalPlayer().CreateInfantry();
     }
 
     void Update()
