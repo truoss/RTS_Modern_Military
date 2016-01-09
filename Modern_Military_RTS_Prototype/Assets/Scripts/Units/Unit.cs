@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 
 public class Unit : MonoBehaviour {
     Renderer mesh;
@@ -54,6 +55,8 @@ public class Unit : MonoBehaviour {
         baseColor = mesh.material.color;
 
         agent = GetComponent<NavMeshAgent>();
+
+        gameObject.AddComponent<NetworkTransform>();
     }
 
     public void InitData (UnitData input) {
@@ -83,24 +86,14 @@ public class Unit : MonoBehaviour {
         if (isMoving) {
             transform.position = Vector3.Lerp(transform.position, TargetField.transform.position, data.Attributes.Mobility * Time.deltaTime);
         } else if (CurrentField != null) {
-            var pos = CurrentField.transform.position;
-            var field = CurrentField.GetComponent<Field>();
-            int idx = -1;
-            for (int i = 0; i < field.Units.Count; i++) {
-                if (field.Units[i] == this) {
-                    idx = i;
-                    break;
-                }
-            }
-            if (idx != -1) {
-                transform.position = new Vector3(pos.x, pos.y + mesh.bounds.size.y * idx, pos.z);
-            }
+            UpdateStackPosition();
         }
     }
 
     public void DoUpdateMovement () {
-        if (Physics.Raycast(transform.position, -Vector3.up, out hit, 100.0F)) {
+        if (Physics.Raycast(transform.position, -Vector3.up, out hit, 100.0F, LayerMask.NameToLayer("Field"))) {
             if (hit.transform.gameObject) {
+                Debug.LogWarning(hit.transform.gameObject.name, hit.transform.gameObject);
                 Field field = null;
                 if (CurrentField == hit.transform.gameObject) {
                     field = CurrentField.GetComponent<Field>();
@@ -137,5 +130,24 @@ public class Unit : MonoBehaviour {
 
     void OnMouseExit () {
         mesh.material.color = baseColor;
+    }
+
+    public void UpdateStackPosition()
+    {
+        var pos = CurrentField.transform.position;
+        var field = CurrentField.GetComponent<Field>();
+        int idx = -1;
+        for (int i = 0; i < field.Units.Count; i++)
+        {
+            if (field.Units[i] == this)
+            {
+                idx = i;
+                break;
+            }
+        }
+        if (idx != -1)
+        {
+            transform.position = new Vector3(pos.x, pos.y + mesh.bounds.size.y * idx, pos.z);
+        }
     }
 }

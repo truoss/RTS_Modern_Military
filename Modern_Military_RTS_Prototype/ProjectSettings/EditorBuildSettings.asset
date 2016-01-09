@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/SampleScenes/Scenes/NetworkLobby.unity
+    path: Assets/Scenes/Lobby.unity
   - enabled: 1
-    path: Assets/SampleScenes/Scenes/NetworkSpaceship.unity
+    path: Assets/Scenes/Network Main.unity

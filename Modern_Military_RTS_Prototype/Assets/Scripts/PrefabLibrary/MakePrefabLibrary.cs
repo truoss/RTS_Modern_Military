@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+#if UNITY_EDITOR
+
 using UnityEditor;
 
 public class MakePrefabLibrary
@@ -30,3 +31,4 @@ public class MakePrefabLibrary
         Selection.activeObject = asset;
     }
 }
+#endif

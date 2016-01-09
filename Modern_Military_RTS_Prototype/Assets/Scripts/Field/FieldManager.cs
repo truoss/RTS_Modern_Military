@@ -68,6 +68,7 @@ public class FieldManager : MonoBehaviour {
         for (int y = 0; y < gridHeightInHexes; y++) {
             for (int x = 0; x < gridWidthInHexes; x++) {
                 var gobj = new GameObject("Field" + calcWorldCoords(new Vector2(x, y)));
+                gobj.layer = 9;
                 gobj.transform.SetParent(hexGridGO.transform);
                 var field = gobj.AddComponent<Field>();
                 if (field) {
