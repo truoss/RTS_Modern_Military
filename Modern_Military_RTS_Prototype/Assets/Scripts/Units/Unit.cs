@@ -57,7 +57,7 @@ public class Unit : MonoBehaviour {
 
         agent = GetComponent<NavMeshAgent>();
 
-        gameObject.AddComponent<NetworkTransform>();
+        //gameObject.AddComponent<NetworkTransform>();
     }
 
     public void InitData (UnitData input) {
@@ -98,18 +98,20 @@ public class Unit : MonoBehaviour {
                 Field field = null;
                 if (CurrentField == hit.transform.gameObject) {
                     field = CurrentField.GetComponent<Field>();
-                    if (!field.Units.Contains(this)) {
-                        field.Units.Add(this);
+                    if (field.Units.Count > 0) {
+                        if (!field.Units.Contains(this)) {
+                            field.Units.Add(this);
+                        }
                     }
                 } else if (CurrentField != hit.transform.gameObject) {
                     if (CurrentField != null) {
                         field = CurrentField.GetComponent<Field>();
-                        field.Units.Remove(this);
-
+                        if (field.Units.Count > 0) 
+                            field.Units.Remove(this);
                     }
                     CurrentField = hit.transform.gameObject;
-                    field = CurrentField.GetComponent<Field>();
-                    field.Units.Add(this);
+                    field = CurrentField.GetComponent<Field>();                    
+                        field.Units.Add(this);
                 }
             }
         }

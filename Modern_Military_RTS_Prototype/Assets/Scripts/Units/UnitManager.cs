@@ -17,14 +17,17 @@ public class UnitManager : NetworkBehaviour
         Debug.LogWarning("CmdCreateInfantry: " + side, this);
         //Generate ID
         //string ID = lastUnitID++;
-        //RpcCreateUnit(UnitName, lastUnitID++, side);
+        RpcCreateUnit(UnitName, lastUnitID++, side);
+        /*
         var tmp = CreateUnit(UnitName, lastUnitID++, side);
         if (tmp)
             NetworkServer.Spawn(tmp.gameObject);
         else
             Debug.LogError("Could not create Unit!", this);
+        */
     }
 
+    /*
     Unit CreateUnit (string UnitName, int ID, Player.Side side) {
         UnitData data = null;
         for (int i = 0; i < UnitDataAsset.I.UnitLibrary.Length; i++) {
@@ -40,7 +43,7 @@ public class UnitManager : NetworkBehaviour
         }
 
         var gObj = new GameObject("Unit");
-        //NetworkServer.SpawnWithClientAuthority(gObj, GetComponent<Player>().gameObject);
+        gObj.AddComponent<NetworkIdentity>();    
         gObj.layer = 10;
         var unit = gObj.AddComponent<Unit>();
         unit.UnitID = ID;
@@ -70,7 +73,7 @@ public class UnitManager : NetworkBehaviour
 
         return null;
     }
-
+    */
     [Command]
     public void CmdMoveUnit (int UnitID, int FieldID) //TODO: WaypointArray
     {
@@ -86,7 +89,7 @@ public class UnitManager : NetworkBehaviour
     }
     */
 
-    /*
+    
     [ClientRpc]
     public void RpcCreateUnit(string UnitName, int ID, Player.Side side)
     {
@@ -107,8 +110,7 @@ public class UnitManager : NetworkBehaviour
             return;
         }
         
-        var gObj = new GameObject("Unit");
-        //NetworkServer.SpawnWithClientAuthority(gObj, GetComponent<Player>().gameObject);
+        var gObj = new GameObject("Unit");        
         gObj.layer = 10;
         var unit = gObj.AddComponent<Unit>();
         unit.UnitID = ID;
@@ -138,6 +140,5 @@ public class UnitManager : NetworkBehaviour
         }
         else
             Destroy(unit.gameObject);
-    }
-    */
+    }    
 }
