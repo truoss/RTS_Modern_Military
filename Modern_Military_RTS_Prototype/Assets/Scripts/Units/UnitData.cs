@@ -46,6 +46,7 @@ public class Attributes {
     public float Firerange;
     public float Cover;
     public float Visibility;
+    public float ViewDistance;
     //public float Fuel;
     public float FuelConsumption;
     //public float Ammunition;

@@ -92,13 +92,14 @@ public class Unit : MonoBehaviour {
     }
 
     public void DoUpdateMovement () {
-        //Check CurrentField
-        if (Physics.Raycast(transform.position, -Vector3.up, out hit, 100.0F, LayerMask.NameToLayer("Field"))) {
+        //Check CurrentField        
+        if (Physics.Raycast(transform.position, -Vector3.up, out hit, 100.0F)) {
             if (hit.transform.gameObject) {
                 Debug.LogWarning(hit.transform.gameObject.name, hit.transform.gameObject);
                 Field field = null;
                 // if CurrentField the same
                 if (CurrentField == hit.transform.gameObject) {
+                    Debug.LogWarning(CurrentField + " == " + hit.transform.gameObject);
                     field = CurrentField.GetComponent<Field>();
                     // Add this unit if not registered
                     if (field.Units.Count > 0) {
@@ -108,6 +109,7 @@ public class Unit : MonoBehaviour {
                     }
                     //if unit moved out of currentfield
                 } else if (CurrentField != hit.transform.gameObject) {
+                    Debug.LogWarning(CurrentField + " != " + hit.transform.gameObject);
                     //remove from last field
                     if (CurrentField != null) {
                         field = CurrentField.GetComponent<Field>();

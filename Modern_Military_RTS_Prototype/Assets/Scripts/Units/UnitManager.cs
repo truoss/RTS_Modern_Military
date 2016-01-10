@@ -152,4 +152,21 @@ public class UnitManager : NetworkBehaviour
 
         unit.TargetField = field.gameObject;
     }
+
+    [ClientRpc]
+    public void RpcDestroyUnits (int[] unitIDs) {
+        for (int i = 0; i < unitIDs.Length; i++) {
+            if (GameLogic.I.GetUnitFromID(unitIDs[i]) != null) {
+                Unit _unit = GameLogic.I.GetUnitFromID(unitIDs[i]);
+                GameLogic.I.Units.Remove(_unit);
+                _unit.CurrentField.GetComponent<Field>().Units.Remove(_unit);
+                Destroy(_unit.gameObject);
+            }
+        }
+    }
+
+    [Command]
+    public void CmdDestroyUnitsOnClients (int[] unitIDs) {
+        RpcDestroyUnits(unitIDs);
+    }
 }

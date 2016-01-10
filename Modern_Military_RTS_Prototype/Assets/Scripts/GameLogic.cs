@@ -11,7 +11,7 @@ public class GameLogic : MonoBehaviour {
     public List<Player> player = new List<Player>();
 
     public float TickTimeMovement = 2;
-    public float TickTimeCombat = 5;
+    public float TickTimeBattle = 4;
 
     public FieldManager FieldManager;
     public TestMap TestMap;
@@ -58,7 +58,8 @@ public class GameLogic : MonoBehaviour {
 
     void Update ()
     {
-        StateMachine.Update();
+        if(StateMachine != null)
+            StateMachine.Update();
     }
 
     void OnDestroy () {
@@ -79,5 +80,13 @@ public class GameLogic : MonoBehaviour {
         }
 
         return localPlayer;
+    }
+
+    public Unit GetUnitFromID (int id) {
+        for (int i = 0; i < Units.Count; i++) {
+            if (Units[i].UnitID == id)
+                return Units[i];
+        }
+        return null;
     }
 }

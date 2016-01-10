@@ -15,6 +15,14 @@ public class FieldData {
 
     public FieldMobilityType[] FieldMobilityType;
 
+    public FieldAttribute GetFieldAttributeFromMobilityType (UnitData.MobilityType MobilityType) {
+        for (int i = 0; i < FieldMobilityType.Length; i++) {
+            if (FieldMobilityType[i].MobilityType == MobilityType)
+                return FieldMobilityType[i].FieldAttribute;
+        }
+        return null;
+    }
+
 }
 
 [System.Serializable]
@@ -29,3 +37,4 @@ public class FieldMobilityType {
     public UnitData.MobilityType MobilityType;
     public FieldAttribute FieldAttribute;
 }
+

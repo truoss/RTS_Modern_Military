@@ -7,7 +7,7 @@ namespace GameStates
 
         private FieldManager FieldManager;
 
-        float waitTime = 30;
+        float waitTime = 15;
         float startTime;
 
         public StartGameState(FieldManager FieldManager)

@@ -29,6 +29,7 @@ MonoBehaviour:
       Firerange: 1
       Cover: 3
       Visibility: 0.2
+      ViewDistance: 1
       FuelConsumption: 0
       AmmunitionConsumption: 0.5
       maxSoftpoint: 10
@@ -50,6 +51,7 @@ MonoBehaviour:
       Firerange: 1
       Cover: 3
       Visibility: 0.2
+      ViewDistance: 1
       FuelConsumption: 0
       AmmunitionConsumption: 0.5
       maxSoftpoint: 10
@@ -71,6 +73,7 @@ MonoBehaviour:
       Firerange: 1
       Cover: 2
       Visibility: 0.8
+      ViewDistance: 1
       FuelConsumption: 0.5
       AmmunitionConsumption: 0.1
       maxSoftpoint: 6

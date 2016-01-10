@@ -17,4 +17,12 @@ public class FieldDataAsset : ScriptableObject {
     }
 
     public FieldData[] FieldTypes;
+
+    public FieldData GetFieldDataFromFieldType (FieldData.FieldType fieldType) {
+        for (int i = 0; i < FieldTypes.Length; i++) {
+            if (FieldTypes[i].fieldType == fieldType)
+                return FieldTypes[i];
+        }
+        return null;
+    }
 }
