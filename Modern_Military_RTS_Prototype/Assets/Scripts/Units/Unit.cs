@@ -77,7 +77,11 @@ public class Unit : MonoBehaviour {
 
     void Update () {
         if (isSelected == true) {
+            mesh.material.color = Color.green;
+        } else if (Side == Player.Side.Blue) {
             mesh.material.color = Color.blue;
+        } else if (Side == Player.Side.Red) {
+            mesh.material.color = Color.red;
         } else {
             mesh.material.color = baseColor;
         }
