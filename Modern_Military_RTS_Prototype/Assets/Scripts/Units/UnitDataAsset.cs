@@ -15,7 +15,7 @@ public class UnitDataAsset : ScriptableObject
                 if (instance == null)
                     Debug.LogError("Could not load UnitDataAsset, make sure it is exported with the built executeable!");
 
-                DontDestroyOnLoad(instance);
+                //DontDestroyOnLoad(instance);
             }
 
             return instance;

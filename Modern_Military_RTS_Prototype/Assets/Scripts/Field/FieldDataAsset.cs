@@ -10,7 +10,7 @@ public class FieldDataAsset : ScriptableObject {
                 if (instance == null)
                     Debug.LogError("Could not load FieldDataAsset, make sure it is exported with the built executeable!");
 
-                DontDestroyOnLoad(instance);
+                //DontDestroyOnLoad(instance);
             }
             return instance;
         }

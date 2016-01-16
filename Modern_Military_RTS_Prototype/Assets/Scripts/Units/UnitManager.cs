@@ -14,7 +14,7 @@ public class UnitManager : NetworkBehaviour
     public void CmdCreateUnit(string UnitName, Player.Side side)
     {
         //Server
-        Debug.LogWarning("CmdCreateInfantry: " + side, this);
+        //Debug.LogWarning("CmdCreateInfantry: " + side, this);
         //Generate ID
         //string ID = lastUnitID++;
         RpcCreateUnit(UnitName, lastUnitID++, side);
@@ -30,7 +30,7 @@ public class UnitManager : NetworkBehaviour
     [ClientRpc]
     public void RpcCreateUnit (string UnitName, int ID, Player.Side side) {
         //Jeder Client
-        Debug.LogWarning("RpcCreateUnit: " + UnitName + " , " + side, this);
+        Debug.Log("RpcCreateUnit: " + UnitName + " , " + side, this);
         UnitData data = null;
         for (int i = 0; i < UnitDataAsset.I.UnitLibrary.Length; i++) {
             if (UnitDataAsset.I.UnitLibrary[i].Name == UnitName) {
@@ -75,7 +75,7 @@ public class UnitManager : NetworkBehaviour
     [Command]
     public void CmdMoveUnit (NetworkInstanceId playerID, int UnitID, int FieldID) //TODO: WaypointArray
     {
-        Debug.LogWarning("CmdMoveUnit: " + playerID + ", " + UnitID + ", " + FieldID, this);
+        //Debug.LogWarning("CmdMoveUnit: " + playerID + ", " + UnitID + ", " + FieldID, this);
         //Validate cmd
         //check for player
         //check for unit

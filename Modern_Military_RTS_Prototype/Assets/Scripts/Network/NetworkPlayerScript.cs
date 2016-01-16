@@ -16,13 +16,13 @@ public class NetworkPlayerScript : NetworkBehaviour
             GameLogic.I.player.Add(player);
         }
 
-        Debug.LogWarning("OnStartLocalPlayer");
+        Debug.Log("OnStartLocalPlayer");
         base.OnStartLocalPlayer();
     }
 
     public override void OnStartClient()
     {
-        Debug.LogWarning("OnStartClient");
+        Debug.Log("OnStartClient");
         var player = GetComponent<Player>();
         if (!GameLogic.I.player.Contains(player))
         {
