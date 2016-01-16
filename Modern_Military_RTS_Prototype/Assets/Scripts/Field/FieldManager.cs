@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class FieldManager : MonoBehaviour {
     public static FieldManager I;
@@ -15,7 +16,8 @@ public class FieldManager : MonoBehaviour {
     private float hexWidth;
     private float hexHeight;
 
-    public Field[,] Map;
+    public Hashtable Map;
+    //public Field[,] Map;
     public Field[] SpawnableFields;
 
     void Awake () {
@@ -24,15 +26,17 @@ public class FieldManager : MonoBehaviour {
 
     //Generate grid on gamestart
     public bool Init () {
+        //TODO
         setSizes();
         BuildMap();
-        SpawnableFields = new Field[2];
+        /*SpawnableFields = new Field[2];
         SpawnableFields[0] = Map[0, Mathf.RoundToInt(gridHeightInHexes * 0.5f)];
         Map[0, Mathf.RoundToInt(gridHeightInHexes * 0.5f)].PlayerSide = Player.Side.Blue;
         Map[0, Mathf.RoundToInt(gridHeightInHexes * 0.5f)].isSpawnable = true;
         SpawnableFields[1] = Map[Mathf.RoundToInt(gridWidthInHexes - 1), Mathf.RoundToInt(gridHeightInHexes * 0.5f)];
         Map[Mathf.RoundToInt(gridWidthInHexes - 1), Mathf.RoundToInt(gridHeightInHexes * 0.5f)].PlayerSide = Player.Side.Red;
         Map[Mathf.RoundToInt(gridWidthInHexes - 1), Mathf.RoundToInt(gridHeightInHexes * 0.5f)].isSpawnable = true;
+        */
         return true;
     }
 
@@ -69,12 +73,13 @@ public class FieldManager : MonoBehaviour {
     //Initilises and positions all tiles
     public void BuildMap () {
         GameObject hexGridGO = new GameObject("FieldGrid");
-        Map = new Field[gridHeightInHexes, gridWidthInHexes];
+        //Map = new Field[gridWidthInHexes, gridHeightInHexes + (int)(gridWidthInHexes * 0.5f)];
+        Map = new Hashtable((int)(gridWidthInHexes * gridHeightInHexes + (gridWidthInHexes * 0.5f)));
         Random.seed = 1337;
 
         for (int y = 0; y < gridHeightInHexes; y++) {
             for (int x = 0; x < gridWidthInHexes; x++) {
-                var gobj = new GameObject("Field" + calcWorldCoords(new Vector2(x, y)));
+                var gobj = new GameObject(x + "," + y);
                 gobj.layer = 9;
                 gobj.transform.SetParent(hexGridGO.transform);
                 var field = gobj.AddComponent<Field>();
@@ -86,7 +91,8 @@ public class FieldManager : MonoBehaviour {
                 field.FieldID = lastFieldID++;
                 field.Init();
                 gobj.transform.position = calcWorldCoords(new Vector2(x, y));
-                Map[x, y] = field;
+                //Map[x, y] = field;
+                Map.Add(new Vector2(x,y), field);
             }
         }
         Debug.Log("Done creating Grid");
@@ -96,5 +102,9 @@ public class FieldManager : MonoBehaviour {
         //return FieldDataAsset.I.FieldTypes[Random.Range(0, FieldDataAsset.I.FieldTypes.Length)].fieldType;
         //Debug.LogWarning(Mathf.RoundToInt(FieldDataAsset.I.FieldTypes.Length * Random.value), this);
         return FieldDataAsset.I.FieldTypes[Mathf.RoundToInt((FieldDataAsset.I.FieldTypes.Length - 1) * Random.value)].fieldType;
+    }
+
+    public Field GetField (int x, int y) {
+        return Map[new Vector2(x, y)] as Field;
     }
 }

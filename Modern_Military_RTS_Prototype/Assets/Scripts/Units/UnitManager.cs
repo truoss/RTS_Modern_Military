@@ -107,7 +107,7 @@ public class UnitManager : NetworkBehaviour
     bool ValidateFieldID (int FieldID) {
         for (int y = 0; y < FieldManager.I.gridHeightInHexes; y++) {
             for (int x = 0; x < FieldManager.I.gridWidthInHexes; x++) {
-                if (FieldManager.I.Map[x, y].FieldID == FieldID)
+                if (FieldManager.I.GetField(x,y).FieldID == FieldID)
                     return true;
             }
         }
@@ -141,8 +141,8 @@ public class UnitManager : NetworkBehaviour
         //get field from id
         for (int y = 0; y < FieldManager.I.gridHeightInHexes; y++) {
             for (int x = 0; x < FieldManager.I.gridWidthInHexes; x++) {
-                if (FieldManager.I.Map[x, y].FieldID == FieldID)
-                    field = FieldManager.I.Map[x, y];
+                if (FieldManager.I.GetField(x, y).FieldID == FieldID)
+                    field = FieldManager.I.GetField(x, y);
             }
         }
         if (field == null) {

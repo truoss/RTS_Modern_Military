@@ -298,10 +298,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f54e4d226e23a249a07c784cbadbe19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: []
   TickTimeMovement: 2
-  TickTimeCombat: 5
+  TickTimeBattle: 4
   FieldManager: {fileID: 858032400}
-  UnitManager: {fileID: 269292362}
   TestMap: {fileID: 0}
   SelectedField: {fileID: 0}
   LastSelectedField: {fileID: 0}
@@ -329,6 +329,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 858032401}
   - 114: {fileID: 858032400}
+  - 114: {fileID: 858032402}
   m_Layer: 0
   m_Name: FieldManager
   m_TagString: Untagged
@@ -363,3 +364,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &858032402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 858032399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8113e74b5b74a043ac35fb1eca0e51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 0
+  y: 0
+  result: {fileID: 0}
