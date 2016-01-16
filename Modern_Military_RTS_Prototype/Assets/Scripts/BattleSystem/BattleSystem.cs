@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleSystem {
+public class BattleSystem : MonoBehaviour {
 
     //Features:
     //Aufruf durch BattleTickRate (BTR) in ServerGameLogic
@@ -15,23 +15,36 @@ public class BattleSystem {
     // 7. Ergebnisanzeige der gesamten Schlacht
 
     List<TentativeDamage> tentativeDamageList = new List<TentativeDamage>();
-    BattleDataAsset battleDataAsset;
+    //BattleDataAsset battleDataAsset;
 
     int currentTickIndex;
+    public BattleData[] BattleData;
 
-    public BattleSystem () {
+    public void Start () {
         currentTickIndex = 0;
         /*
-#if UNITY_EDITOR        
-        battleDataAsset = ScriptableObject.CreateInstance<BattleDataAsset>();
-        UnityEditor.AssetDatabase.CreateAsset(battleDataAsset, "Assets/Resources/BattleDataAsset.asset");
-        UnityEditor.AssetDatabase.SaveAssets();
+        #if UNITY_EDITOR        
+                battleDataAsset = ScriptableObject.CreateInstance<BattleDataAsset>();
+                UnityEditor.AssetDatabase.CreateAsset(battleDataAsset, "Assets/Resources/BattleDataAsset.asset");
+                UnityEditor.AssetDatabase.SaveAssets();
         
         
-        battleDataAsset = Resources.Load<BattleDataAsset>("BattleDataAsset");
-        battleDataAsset.name = DateTime.Now.ToShortDateString();        
-#endif
-*/
+                battleDataAsset = Resources.Load<BattleDataAsset>("BattleDataAsset");
+                battleDataAsset.name = DateTime.Now.ToShortDateString();        
+        #endif
+        */
+    }
+
+
+    public void AddBattleData (BattleData data) {
+        List<BattleData> tmp;
+        if (BattleData == null) {
+            tmp = new List<BattleData>();
+        } else {
+            tmp = new List<BattleData>(BattleData);
+        }
+        tmp.Add(data);
+        BattleData = tmp.ToArray();
     }
 
     public void BattleTick (Unit[] allUnits) {
@@ -68,8 +81,7 @@ public class BattleSystem {
         // 6. BattleTick Log
         var data = new BattleData(currentTickIndex++, startTime, endTime, tentativeDamageList.ToArray());
         DebugBattleData(data);
-        if(battleDataAsset)
-            battleDataAsset.AddBattleData(data);
+        AddBattleData(data);
 
         //Debug.LogWarning("Tick done: " + currentTickIndex);
     }
@@ -84,7 +96,7 @@ public class BattleSystem {
             }
             Debug.LogWarning(result);
         }
-        
+
     }
 
     Unit[] GetUnitsInRange (Unit Unit) {
@@ -101,15 +113,15 @@ public class BattleSystem {
         foreach (var item in unitsInRange) {
             Debug.LogWarning("unitsInRange: " + item, item);
         }
-        
+
         return unitsInRange.ToArray();
     }
 
     Unit GetTargetFromUnitsInRange (Unit[] UnitsInRange) {
         //TODO: ALL OF IT
         if (UnitsInRange != null && UnitsInRange.Length > 0) {
-            Debug.LogWarning("target: " + UnitsInRange[0], UnitsInRange[0]);            
-            return UnitsInRange[0];        
+            Debug.LogWarning("target: " + UnitsInRange[0], UnitsInRange[0]);
+            return UnitsInRange[0];
         }
         return null;
     }
@@ -151,7 +163,7 @@ public class BattleSystem {
         result.curFirepowerSoft = Origin.UnitStats.Attributes.FirepowerSoft / (Origin.UnitStats.Attributes.maxSoftpoint / Origin.curSoftpoints);
         result.curFirepowerHard = Origin.UnitStats.Attributes.FirepowerHard / (Origin.UnitStats.Attributes.maxHardpoint / Origin.curHardpoints);
         result.Origin = Origin;
-                
+
         return result;
     }
 

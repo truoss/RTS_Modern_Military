@@ -28,7 +28,7 @@ namespace GameStates {
             //BattleSystem
             LastBattleTick = Time.time;
             if (BattleSystem == null && GameLogic.I.GetLocalPlayer().GetComponent<UnityEngine.Networking.NetworkIdentity>().isServer) {
-                BattleSystem = new BattleSystem();
+                BattleSystem = GameLogic.I.gameObject.AddComponent<BattleSystem>();
             }
         }
 
