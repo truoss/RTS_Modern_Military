@@ -106,7 +106,7 @@ public class Unit : MonoBehaviour {
                     Debug.LogWarning(CurrentField + " == " + hit.transform.gameObject);
                     field = CurrentField.GetComponent<Field>();
                     // Add this unit if not registered
-                    if (field.Units.Count > 0) {
+                    if (field && field.Units.Count > 0) {
                         if (!field.Units.Contains(this)) {
                             field.Units.Add(this);
                         }
@@ -117,12 +117,13 @@ public class Unit : MonoBehaviour {
                     //remove from last field
                     if (CurrentField != null) {
                         field = CurrentField.GetComponent<Field>();
-                        if (field.Units.Count > 0) 
+                        if (field && field.Units.Count > 0) 
                             field.Units.Remove(this);
                     }
                     //register to new field
                     CurrentField = hit.transform.gameObject;
-                    field = CurrentField.GetComponent<Field>();                    
+                    field = CurrentField.GetComponent<Field>();   
+                    if (field)                 
                         field.Units.Add(this);
                 }
             }
@@ -151,6 +152,8 @@ public class Unit : MonoBehaviour {
     {
         var pos = CurrentField.transform.position;
         var field = CurrentField.GetComponent<Field>();
+        if (field == null)
+            return;
         int idx = -1;
         for (int i = 0; i < field.Units.Count; i++)
         {

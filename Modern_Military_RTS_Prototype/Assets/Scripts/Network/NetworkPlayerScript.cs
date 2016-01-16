@@ -31,5 +31,9 @@ public class NetworkPlayerScript : NetworkBehaviour
         base.OnStartClient();
     }
 
+    void OnDestroy () {
+        //NetworkManager.Shutdown();
+    }
+
 
 }

@@ -28,6 +28,7 @@ namespace GameStates
 
         IGameState IGameState.Update()
         {
+            //return this;
             //wait 30sec before start
             if (startTime + waitTime > Time.time)
             {

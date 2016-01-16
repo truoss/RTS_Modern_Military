@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using GameStates;
-using System.Collections;
 using System.Collections.Generic;
 
 public class GameLogic : MonoBehaviour {
@@ -63,6 +62,7 @@ public class GameLogic : MonoBehaviour {
     }
 
     void OnDestroy () {
+        if (StateMachine != null)
         StateMachine.Abort();
     }
 

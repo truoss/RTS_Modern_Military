@@ -21,7 +21,7 @@ public class BattleSystem {
 
     public BattleSystem () {
         currentTickIndex = 0;
-
+        /*
 #if UNITY_EDITOR        
         battleDataAsset = ScriptableObject.CreateInstance<BattleDataAsset>();
         UnityEditor.AssetDatabase.CreateAsset(battleDataAsset, "Assets/Resources/BattleDataAsset.asset");
@@ -31,6 +31,7 @@ public class BattleSystem {
         battleDataAsset = Resources.Load<BattleDataAsset>("BattleDataAsset");
         battleDataAsset.name = DateTime.Now.ToShortDateString();        
 #endif
+*/
     }
 
     public void BattleTick (Unit[] allUnits) {

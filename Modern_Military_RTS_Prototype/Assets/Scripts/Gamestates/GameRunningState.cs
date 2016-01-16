@@ -14,7 +14,7 @@ namespace GameStates {
 
         public void Finished () {
             //GameLogic.I.SelectField(null);
-            GameLogic.I.SelectUnit(null);
+            //GameLogic.I.SelectUnit(null);
         }
 
         public void Init () {
@@ -24,13 +24,12 @@ namespace GameStates {
             GameLogic.I.GetLocalPlayer().statemachine = new StateMachine();
             GameLogic.I.GetLocalPlayer().statemachine.SetState(new PlayGameState(GameLogic.I.GetLocalPlayer()));
 
+            
             //BattleSystem
             LastBattleTick = Time.time;
             if (BattleSystem == null && GameLogic.I.GetLocalPlayer().GetComponent<UnityEngine.Networking.NetworkIdentity>().isServer) {
                 BattleSystem = new BattleSystem();
             }
-
-
         }
 
         public IGameState Update ()
