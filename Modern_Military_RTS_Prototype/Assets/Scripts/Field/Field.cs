@@ -7,13 +7,15 @@ public class Field : MonoBehaviour {
 
     public List<Unit> Units = new List<Unit>();
     private FieldData Data;
+    public int x;
+    public int y;
 
     public bool isSpawnable = false;
     public Player.Side PlayerSide = Player.Side.Neutral;
 
     public FieldData.FieldType fieldType = FieldData.FieldType.NotSet;
 
-    public void Init () {
+    public void Init (int x, int y) {
         if (fieldType == FieldData.FieldType.NotSet) {
             Debug.LogError("fieldType not set", this);
             return;
@@ -36,6 +38,8 @@ public class Field : MonoBehaviour {
         } else {
             mesh.material = new Material(Data.Material);
         }
+        this.x = x;
+        this.y = y;
     }
 
     void Update () {

@@ -2,6 +2,17 @@
 using UnityEngine;
 
 public class FieldManager : MonoBehaviour {
+
+    public enum FieldDirection {
+        UpRight,
+        Right,
+        DownRight,
+        DownLeft,
+        Left,
+        UpLeft,
+        None
+    }
+
     public static FieldManager I;
     //Tile IDs
     int lastFieldID = 0;
@@ -89,7 +100,7 @@ public class FieldManager : MonoBehaviour {
                     gobj.GetComponent<Rigidbody>().isKinematic = true;
                 }
                 field.FieldID = lastFieldID++;
-                field.Init();
+                field.Init(x, y);
                 gobj.transform.position = calcWorldCoords(new Vector2(x, y));
                 //Map[x, y] = field;
                 Map.Add(new Vector2(x,y), field);
@@ -107,4 +118,40 @@ public class FieldManager : MonoBehaviour {
     public Field GetField (int x, int y) {
         return Map[new Vector2(x, y)] as Field;
     }
+
+    //TODO: Enum to coordinates
+
+    public Field GetOffsetNeighbour (Field field, FieldDirection dir) {
+        Vector2 tmp = GetValueFromFieldDir(dir);
+        return GetField(field.x + (int)tmp.x, field.y + (int)tmp.y);
+    }
+
+    Vector2 GetValueFromFieldDir (FieldDirection dir) {
+        switch (dir) {
+            case FieldDirection.UpRight:
+            return new Vector2(0, 1);
+
+            case FieldDirection.Right:
+            return new Vector2(1, 0);
+
+            case FieldDirection.DownRight:
+            return new Vector2(0, -1);
+
+            case FieldDirection.DownLeft:
+            return new Vector2(-1, -1);
+
+            case FieldDirection.Left:
+            return new Vector2(-1, 0);
+
+            case FieldDirection.UpLeft:
+            return new Vector2(-1, 1);
+
+            case FieldDirection.None:
+            return new Vector2(0, 0);
+
+            default:
+            return new Vector2(0, 0);
+        }
+    }
+
 }
