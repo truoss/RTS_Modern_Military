@@ -3,16 +3,6 @@ using UnityEngine;
 
 public class FieldManager : MonoBehaviour {
 
-    public enum FieldDirection {
-        UpRight,
-        Right,
-        DownRight,
-        DownLeft,
-        Left,
-        UpLeft,
-        None
-    }
-
     public static FieldManager I;
     //Tile IDs
     int lastFieldID = 0;
@@ -119,39 +109,14 @@ public class FieldManager : MonoBehaviour {
         return Map[new Vector2(x, y)] as Field;
     }
 
-    //TODO: Enum to coordinates
-
-    public Field GetOffsetNeighbour (Field field, FieldDirection dir) {
-        Vector2 tmp = GetValueFromFieldDir(dir);
+    public Field GetOffsetNeighbour (Field field, HexUtils.HexDirection dir) {
+        Vector2 tmp = HexUtils.GetValueFromHexDir(dir);
         return GetField(field.x + (int)tmp.x, field.y + (int)tmp.y);
     }
 
-    Vector2 GetValueFromFieldDir (FieldDirection dir) {
-        switch (dir) {
-            case FieldDirection.UpRight:
-            return new Vector2(0, 1);
-
-            case FieldDirection.Right:
-            return new Vector2(1, 0);
-
-            case FieldDirection.DownRight:
-            return new Vector2(0, -1);
-
-            case FieldDirection.DownLeft:
-            return new Vector2(-1, -1);
-
-            case FieldDirection.Left:
-            return new Vector2(-1, 0);
-
-            case FieldDirection.UpLeft:
-            return new Vector2(-1, 1);
-
-            case FieldDirection.None:
-            return new Vector2(0, 0);
-
-            default:
-            return new Vector2(0, 0);
-        }
+    public Field GetDiagonalNeighbour (Field field, HexUtils.HexDiagonal dig) {
+        Vector2 tmp = HexUtils.CubeToOffset(HexUtils.GetValueFromHexDiagonal(dig));
+        return GetField(field.x + (int) tmp.x, field.y + (int) tmp.y);
     }
 
 }

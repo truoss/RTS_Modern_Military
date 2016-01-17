@@ -11,6 +11,8 @@ public class TestFieldManagerEditor : Editor {
             tfield.GetField();
         if (GUILayout.Button("GetNeighbour"))
             tfield.GetNeighbour();
+        if (GUILayout.Button("GetDiagonal"))
+            tfield.GetDiagonal();
     }
 
 }

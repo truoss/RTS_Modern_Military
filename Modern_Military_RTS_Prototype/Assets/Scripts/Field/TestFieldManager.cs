@@ -7,8 +7,10 @@ public class TestFieldManager : MonoBehaviour {
     public int y;
     public Field result;
 
-    public FieldManager.FieldDirection dir;
+    public HexUtils.HexDirection dir;
+    public HexUtils.HexDiagonal dig;
     public Field neighbour;
+    public Field diagonal;
 
     [ContextMenu("GetField")]
     public void GetField () {
@@ -18,5 +20,10 @@ public class TestFieldManager : MonoBehaviour {
     public void GetNeighbour () {
         GetField();
         neighbour = FieldManager.I.GetOffsetNeighbour(result, dir);
+    }
+
+    public void GetDiagonal () {
+        GetField();
+        diagonal = FieldManager.I.GetDiagonalNeighbour(result, dig);
     }
 }
