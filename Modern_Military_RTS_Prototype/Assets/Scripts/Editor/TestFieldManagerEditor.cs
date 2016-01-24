@@ -13,6 +13,8 @@ public class TestFieldManagerEditor : Editor {
             tfield.GetNeighbour();
         if (GUILayout.Button("GetDiagonal"))
             tfield.GetDiagonal();
+        if (GUILayout.Button("StartLinedrawing"))
+            tfield.TestLinedrawing();
     }
 
 }

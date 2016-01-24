@@ -106,7 +106,12 @@ public class FieldManager : MonoBehaviour {
     }
 
     public Field GetField (int x, int y) {
-        return Map[new Vector2(x, y)] as Field;
+        return GetField(new Vector2(x, y));
+    }
+
+    public Field GetField (Vector2 v)
+    {
+        return Map[v] as Field;
     }
 
     public Field GetOffsetNeighbour (Field field, HexUtils.HexDirection dir) {

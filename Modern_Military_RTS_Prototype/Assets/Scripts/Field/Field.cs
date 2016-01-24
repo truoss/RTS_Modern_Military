@@ -43,13 +43,13 @@ public class Field : MonoBehaviour {
     }
 
     void Update () {
-        if (isSelected == true) {
-            mesh.material.color = Color.red;
-        } else if (isSpawnable == true) {
-            mesh.material.color = Color.yellow;
-        } else {
-            mesh.material.color = Data.Material.color;
-        }
+        //if (isSelected == true) {
+        //    mesh.material.color = Color.red;
+        //} else if (isSpawnable == true) {
+        //    mesh.material.color = Color.yellow;
+        //} //else {
+           // mesh.material.color = Data.Material.color;
+        //}
     }
 
     void OnMouseOver () {
@@ -70,6 +70,15 @@ public class Field : MonoBehaviour {
             } else {
                 return false;
             }
+        }
+    }
+
+    public void SetColor (Color color)
+    {
+        if (color == Color.white) {
+            mesh.material.color = Data.Material.color;
+        } else {
+            mesh.material.color = color;
         }
     }
 }
