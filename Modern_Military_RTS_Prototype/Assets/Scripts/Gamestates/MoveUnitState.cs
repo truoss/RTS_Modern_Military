@@ -29,6 +29,7 @@ namespace GameStates {
             field = null;
 
             //raycast on mouse click
+            /*
             if (Input.GetMouseButtonDown(0)) {
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Camera.main.farClipPlane)) {
                     if (hit.transform.GetComponent<Unit>()) {
@@ -50,6 +51,7 @@ namespace GameStates {
                     }
                 }
             }
+            */
             //Update units movement
             //Debug.Log(Time.time);
             if (LastTick +GameLogic.I.TickTimeMovement < Time.time) {
