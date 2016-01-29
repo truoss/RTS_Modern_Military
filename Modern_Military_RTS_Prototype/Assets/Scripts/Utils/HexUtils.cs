@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 //http://www.redblobgames.com/grids/hexagons/
 public class HexUtils
@@ -26,26 +27,55 @@ public class HexUtils
         None
     }
 
-    public static Vector2 GetValueFromHexDir (HexDirection dir)
+    public static Vector2 GetValueFromHexDirOdd (HexDirection dir)
     {
         switch (dir) {
             case HexDirection.UpRight:
-            return new Vector2(0, 1);
+            return new Vector2(1, 1); // 1, 1
 
             case HexDirection.Right:
-            return new Vector2(1, 0);
+            return new Vector2(1, 0); // OK
 
-            case HexDirection.DownRight:
+            case HexDirection.DownRight: // 1, -1
+            return new Vector2(1, -1);
+
+            case HexDirection.DownLeft: //0 ,-1
             return new Vector2(0, -1);
 
-            case HexDirection.DownLeft:
+            case HexDirection.Left:
+            return new Vector2(-1, 0); // OK
+
+            case HexDirection.UpLeft:
+            return new Vector2(0, 1); // 0,1 
+
+            case HexDirection.None:
+            return new Vector2(0, 0);
+
+            default:
+            return new Vector2(0, 0);
+        }
+    }
+
+    public static Vector2 GetValueFromHexDirEven (HexDirection dir)
+    {
+        switch (dir) {
+            case HexDirection.UpRight:
+            return new Vector2(0, 1); // 1, 1
+
+            case HexDirection.Right:
+            return new Vector2(1, 0); // OK
+
+            case HexDirection.DownRight: // 1, -1
+            return new Vector2(0, -1);
+
+            case HexDirection.DownLeft: //0 ,-1
             return new Vector2(-1, -1);
 
             case HexDirection.Left:
-            return new Vector2(-1, 0);
+            return new Vector2(-1, 0); // OK
 
             case HexDirection.UpLeft:
-            return new Vector2(-1, 1);
+            return new Vector2(-1, 1); // 0,1 
 
             case HexDirection.None:
             return new Vector2(0, 0);
@@ -99,12 +129,22 @@ public class HexUtils
         return new Vector3(x, y, z);
     }
 
-    public static Vector3 OffsetToCube (int col, int row)
+    public static Vector3 HexToCube (Vector2 input)
     {
-        int x = (int)(col - (row - (row & 1)) * 0.5f);
+        return HexToCube((int)input.x, (int)input.y);
+    }
+
+    public static Vector3 OffsetToCube (int col, int row) // Int NO GOOD
+    {
+        int x = (int) (col - (row - (row & 1)) * 0.5f);
         int y = row;
         int z = -x - y;
         return new Vector3(x, y, z);
+    }
+
+    public static Vector3 OffsetToCube (Vector2 input)
+    {
+        return OffsetToCube((int) input.x, (int) input.y);
     }
 
     public static Vector2 CubeToOffset (Vector3 cube)
@@ -152,14 +192,27 @@ public class HexUtils
                            a.z + (b.z - a.z) * t);
     }
 
-    public static Vector3[] CubeLinedraw (Vector3 a, Vector3 b)
+    public static Vector2[] OffsetLinedraw (Vector3 a, Vector3 b)
     {
         int N = CubeDistance(a, b);
-        Vector3[] results = new Vector3[N + 1];
+        Vector2[] results = new Vector2[N + 1];
         for (int i = 0; i < results.Length; i++) {
-            results[i] = CubeRound(CubeLerp(a, b, 1.0f / N * i));
+            results[i] = CubeToOffset(CubeRound(CubeLerp(a, b, 1.0f / N * i)));
         }
         return results;
+    }
+
+    public static Vector2[] OffsetCoordinateRange (Vector2 center, int range)
+    {
+        List<Vector2> results = new List<Vector2>();
+        for (int x = -range; x <= range; x++) {
+            for (int y = Mathf.Max(-range, -x - range); y <= Mathf.Min(range, -x + range); y++) {
+                float z = -x - y;
+                Vector2 v2 = CubeToOffset(new Vector3(x, y, z) + OffsetToCube(center));
+                results.Add(v2);
+            }
+        }
+        return results.ToArray();
     }
 
 }

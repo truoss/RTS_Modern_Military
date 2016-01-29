@@ -7,6 +7,7 @@ public class TestFieldManager : MonoBehaviour
 
     public int x;
     public int y;
+    public int range = 5;
     public Field result;
 
     public HexUtils.HexDirection dir;
@@ -41,6 +42,49 @@ public class TestFieldManager : MonoBehaviour
             StartCoroutine(AsyncMultiLinedrawing());
     }
 
+    public void TestCoordinateRange ()
+    {
+        Field curField;
+        Field midField;
+
+        Vector2[] rangeCoords = HexUtils.OffsetCoordinateRange(new Vector2(x, y), range);
+        for (int i = 0; i < rangeCoords.Length; i++) {
+            //hexcoord = HexUtils.CubeToOffset(coords[i]);
+            curField = FieldManager.I.GetField(rangeCoords[i]);
+            if (curField != null) {
+                curField.SetColor(Color.blue);
+            }
+        }
+        midField = FieldManager.I.GetField(x, y);
+        if (midField != null)
+            midField.SetColor(Color.red);
+    }
+
+    public void TestReachable ()
+    {
+        Field curField;
+        Field midField;
+        
+        Vector2[] reachableCoords = OffsetReachable(new Vector2(x, y), range);
+        for (int i = 0; i < reachableCoords.Length; i++) {
+            //hexcoord = HexUtils.CubeToOffset(coords[i]);
+            curField = FieldManager.I.GetField(reachableCoords[i]);
+            if (curField != null) {
+                curField.SetColor(Color.blue);
+            }
+        }
+        midField = FieldManager.I.GetField(x, y);
+        if (midField != null)
+            midField.SetColor(Color.yellow);            
+    }
+
+    public void ResetAllColor ()
+    {
+        foreach (Vector2 key in FieldManager.I.Map.Keys) {
+            FieldManager.I.GetField(key).SetColor(Color.white);
+        }
+    }
+
     private IEnumerator AsyncMultiLinedrawing ()
     {
         isRunning = true;
@@ -48,7 +92,7 @@ public class TestFieldManager : MonoBehaviour
         Field endField = null;
 
         List<Field> midPoints = new List<Field>();
-        List<Vector3> allCubeCoords = new List<Vector3>();
+        List<Vector2> allOffsetCoords = new List<Vector2>();
 
         RaycastHit hit;
         Field field;
@@ -76,10 +120,10 @@ public class TestFieldManager : MonoBehaviour
                         field = hit.transform.GetComponent<Field>();
                         midPoints.Add(field);
                         if (midPoints.Count == 1) {
-                            allCubeCoords.AddRange(CubeLinedrawColor(startField, midPoints[0], Color.green));
+                            allOffsetCoords.AddRange(OffsetLinedrawColor(startField, midPoints[0], Color.green));
                         } else if (midPoints.Count > 1) {
                             for (int i = 1; i < midPoints.Count; i++) {
-                                allCubeCoords.AddRange(CubeLinedrawColor(midPoints[i - 1], midPoints[i], Color.green));
+                                allOffsetCoords.AddRange(OffsetLinedrawColor(midPoints[i - 1], midPoints[i], Color.green));
                             }
                         }
                         field.SetColor(Color.yellow);
@@ -95,9 +139,9 @@ public class TestFieldManager : MonoBehaviour
                         if (field != startField) {
                             endField = field;
                             if (midPoints.Count == 0) {
-                                allCubeCoords.AddRange(CubeLinedrawColor(startField, endField, Color.green));
+                                allOffsetCoords.AddRange(OffsetLinedrawColor(startField, endField, Color.green));
                             } else {
-                                allCubeCoords.AddRange(CubeLinedrawColor(midPoints[midPoints.Count - 1], endField, Color.green));
+                                allOffsetCoords.AddRange(OffsetLinedrawColor(midPoints[midPoints.Count - 1], endField, Color.green));
                             }
                         }
                     }
@@ -108,9 +152,9 @@ public class TestFieldManager : MonoBehaviour
         endField.SetColor(Color.red);
 
         yield return new WaitForSeconds(waitTime);
-        for (int i = 0; i < allCubeCoords.Count; i++) {
-            var hexcoord = HexUtils.CubeToOffset(allCubeCoords[i]);
-            var curField = FieldManager.I.GetField(hexcoord);
+        for (int i = 0; i < allOffsetCoords.Count; i++) {
+            //var hexcoord = HexUtils.CubeToOffset(allOffsetCoords[i]);
+            var curField = FieldManager.I.GetField(allOffsetCoords[i]);
             if (curField != null) {
                 curField.SetColor(Color.white);
             }
@@ -120,55 +164,9 @@ public class TestFieldManager : MonoBehaviour
 
     }
 
-    /*
-    private IEnumerator AsyncTestLinedrawing ()
+    private static Vector2[] OffsetLinedrawColor (Field startField, Field endField, Color color)
     {
-        isRunning = true;
-        Field startField = null;
-        Field endField = null;
-
-        // Waits for firstselection
-        while (startField == null) {
-            if (GameLogic.I.SelectedField != null) {
-                startField = GameLogic.I.SelectedField;
-
-            }
-            yield return new WaitForFixedUpdate();
-        }
-        startField.SetColor(Color.red);
-
-        // Waits for selection after startfield was selected
-        while (endField == null) {
-            if (GameLogic.I.SelectedField != null && GameLogic.I.SelectedField != startField) {
-                endField = GameLogic.I.SelectedField;
-            }
-            yield return new WaitForFixedUpdate();
-        }
-
-        endField.SetColor(Color.red);
-
-        Vector2 hexcoord;
-        Field curField;
-        Vector3[] coords = CubeLinedrawColor(startField, endField, Color.green);
-
-        // Resets Colors after time
-        yield return new WaitForSeconds(10f);
-        for (int i = 0; i < coords.Length; i++) {
-            hexcoord = HexUtils.CubeToOffset(coords[i]);
-            curField = FieldManager.I.GetField(hexcoord);
-            if (curField != null) {
-                curField.SetColor(Color.white);
-            }
-        }
-        Debug.Log("Testline Done");
-        isRunning = false;
-    }
-    */
-
-    private static Vector3[] CubeLinedrawColor (Field startField, Field endField, Color color)
-    {
-        Vector3[] coords;
-        Vector2 hexcoord;
+        Vector2[] coords;
         Field curField;
 
         Vector3 coordStart = HexUtils.OffsetToCube(startField.x, startField.y);
@@ -176,17 +174,54 @@ public class TestFieldManager : MonoBehaviour
 
         //Debug.LogWarning("coordStart: " + coordStart.ToString("f2") + " , end: " + coordEnd.ToString("f2"));
 
-        coords = HexUtils.CubeLinedraw(coordStart, coordEnd);
+        coords = HexUtils.OffsetLinedraw(coordStart, coordEnd);
 
         // Colors Fields inbetween start & endfield
         for (int i = 0; i < coords.Length; i++) {
-            hexcoord = HexUtils.CubeToOffset(coords[i]);
-            curField = FieldManager.I.GetField(hexcoord);
+            //hexcoord = HexUtils.CubeToOffset(coords[i]);
+            curField = FieldManager.I.GetField(coords[i]);
             if (curField != null && curField != startField && curField != endField) {
                 curField.SetColor(color);
             }
         }
-
         return coords;
     }
+
+    public List<List<Vector2>> fringes = new List<List<Vector2>>();
+    
+    public Vector2[] OffsetReachable (Vector2 start, int movement)
+    {
+        Vector2 neighbor;
+        List<Vector2> visited = new List<Vector2>();
+        visited.Add(start);
+        fringes.Clear();
+        var tmp = new List<Vector2>();
+        tmp.Add(start);
+        fringes.Add(tmp);
+
+        for (int i = 1; i <= movement; i++) {
+            fringes.Add(new List<Vector2>());
+            for (int j = 0; j < fringes[i - 1].Count; j++) {
+                Debug.LogWarning(fringes[i - 1].Count + " i: " + i);
+                for (int n = 0; n < 6; n++) {
+                    if(fringes[i - 1][j].y % 2 == 0)
+                        neighbor = HexUtils.GetValueFromHexDirEven((HexUtils.HexDirection) n);
+                    else
+                        neighbor = HexUtils.GetValueFromHexDirOdd((HexUtils.HexDirection) n);
+                    //Debug.LogWarning(neighbor.ToString("f4") + " | " + fringes[i - 1][j].ToString("f4"));
+                    //neighbor.x += fringes[i - 1][j].x;
+                    //neighbor.y += fringes[i - 1][j].y;
+                    neighbor += fringes[i - 1][j];
+
+                    //TODO Blocked Hex
+                    if (!visited.Contains(neighbor)) {
+                        visited.Add(neighbor);
+                        fringes[i].Add(neighbor);
+                    }
+                }
+            }
+        }
+        
+        return visited.ToArray();
+    }    
 }

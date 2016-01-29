@@ -15,6 +15,12 @@ public class TestFieldManagerEditor : Editor {
             tfield.GetDiagonal();
         if (GUILayout.Button("StartLinedrawing"))
             tfield.TestLinedrawing();
+        if (GUILayout.Button("CoordinateRange"))
+            tfield.TestCoordinateRange();
+        if (GUILayout.Button("ReachableFields"))
+            tfield.TestReachable();
+        if (GUILayout.Button("ResetAllColor"))
+            tfield.ResetAllColor();
     }
 
 }

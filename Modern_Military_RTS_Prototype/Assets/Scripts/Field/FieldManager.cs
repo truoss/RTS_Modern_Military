@@ -11,6 +11,8 @@ public class FieldManager : MonoBehaviour {
     public int gridWidthInHexes = 10;
     public int gridHeightInHexes = 10;
 
+    public float margin = 0.1f;
+
     public GameObject HexMesh;
 
     //Hex tile size ingame
@@ -115,8 +117,12 @@ public class FieldManager : MonoBehaviour {
     }
 
     public Field GetOffsetNeighbour (Field field, HexUtils.HexDirection dir) {
-        Vector2 tmp = HexUtils.GetValueFromHexDir(dir);
-        return GetField(field.x + (int)tmp.x, field.y + (int)tmp.y);
+        Vector2 tmp;
+        if (field.y % 2 == 0)
+            tmp = HexUtils.GetValueFromHexDirEven(dir);
+        else
+            tmp = HexUtils.GetValueFromHexDirOdd(dir)
+;        return GetField(field.x + (int)tmp.x, field.y + (int)tmp.y);
     }
 
     public Field GetDiagonalNeighbour (Field field, HexUtils.HexDiagonal dig) {
